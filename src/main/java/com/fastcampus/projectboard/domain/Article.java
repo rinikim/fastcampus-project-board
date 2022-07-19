@@ -7,6 +7,7 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -22,6 +23,7 @@ import java.util.Set;
         @Index(columnList = "createdAt"),
         @Index(columnList = "createdBy"),
 })
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 public class Article {
     @Id
@@ -46,6 +48,7 @@ public class Article {
         이러하면 cascade 는 운영입장에서는 불상사이다.
         그래서 일부러 연관관께 FK 를 걸지 않는 경우가 있다.
         퍼포먼스 이슈때문에도 FK 를 걸지 않는 경우가 있다.
+        하지만 지금은 공부하는 것이기 때문에 적용을 해보자.
      */
     @OrderBy("id")  // 정렬기준
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL) // mappedBy 하지 않으면 article_articleComment 로 생김

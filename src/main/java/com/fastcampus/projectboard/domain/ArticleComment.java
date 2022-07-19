@@ -5,6 +5,7 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,8 +18,8 @@ import java.util.Objects;
         @Index(columnList = "createdAt"),
         @Index(columnList = "createdBy"),
 })
+@EntityListeners(AuditingEntityListener.class)
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ArticleComment {
 
     @Id
@@ -47,6 +48,8 @@ public class ArticleComment {
     @LastModifiedBy
     @Column(nullable = false, length = 100)
     private String modifiedBy;          // 수정자
+
+    protected ArticleComment() {}
 
     private ArticleComment(Article article, String content) {
         this.article = article;
