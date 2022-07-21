@@ -37,3 +37,5 @@ spring:
   jpa.hibernate.ddl-auto: create
   sql.init.mode: always
   test.database.replace: none
+  thymeleaf3:
+    decoupled-logic: true
