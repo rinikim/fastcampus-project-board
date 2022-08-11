@@ -5,7 +5,6 @@ import com.fastcampus.projectboard.domain.Article;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
@@ -52,7 +51,7 @@ class JpaRepositoryTest {
         long previousCount = articleRepository.count();
 
         // when
-        Article savedArticle = articleRepository.save(Article.of("new article", "new content", "#spring"));
+//        Article savedArticle = articleRepository.save(Article.of(createUserAccount(), "new article", "new content", "#spring"));
 
         // then
         assertThat(articleRepository.count())

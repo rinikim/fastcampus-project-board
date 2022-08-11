@@ -57,7 +57,7 @@ public class Article extends AuditingFields{
     }
 
     // factory method pattern - domain article 을 생성하고자 할 때 어떤 값을 필요한지 쉽게 확인할 수 있다.
-    public static Article of(String title, String content, String hashtag) {
+    public static Article of(UserAccount userAccount, String title, String content, String hashtag) {
         return new Article(title, content, hashtag);
     }
 
