@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Getter
-@ToString
+@ToString(callSuper = true)
 @Table(indexes = {
         @Index(columnList = "title"),
         @Index(columnList = "hashtag"),
@@ -32,6 +32,11 @@ public class Article extends AuditingFields{
     @Setter
     private String hashtag;     // 해시테그
 
+    @Setter
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "userId")
+    private UserAccount userAccount;
+
     /*
         실무에서는 양방향을 풀고 진행하는 경우도 많다.
         cascade 로 인해서 서로 결합되면 마이그레이션 하거나 편집할 때 어려움이 따를 수 있고,
@@ -43,14 +48,15 @@ public class Article extends AuditingFields{
         퍼포먼스 이슈때문에도 FK 를 걸지 않는 경우가 있다.
         하지만 지금은 공부하는 것이기 때문에 적용을 해보자.
      */
-    @OrderBy("id")  // 정렬기준
+    @OrderBy("createdAt DESC")
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL) // mappedBy 하지 않으면 article_articleComment 로 생김
     @ToString.Exclude   // 게시글을 보면서 댓글을 모두 다 볼 필요 없으므로 해당 ToString 을 제외한다.
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();  // 중복허용 x
 
     protected Article() {}
 
-    private Article(String title, String content, String hashtag) {
+    private Article(UserAccount userAccount, String title, String content, String hashtag) {
+        this.userAccount = userAccount;
         this.title = title;
         this.content = content;
         this.hashtag = hashtag;
@@ -58,7 +64,7 @@ public class Article extends AuditingFields{
 
     // factory method pattern - domain article 을 생성하고자 할 때 어떤 값을 필요한지 쉽게 확인할 수 있다.
     public static Article of(UserAccount userAccount, String title, String content, String hashtag) {
-        return new Article(title, content, hashtag);
+        return new Article(userAccount, title, content, hashtag);
     }
 
     /*
