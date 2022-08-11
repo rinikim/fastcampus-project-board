@@ -14,7 +14,7 @@ spring:
     password: thisisTESTpw!#%&
     driver-class-name: com.mysql.cj.jdbc.Driver # mysql 8 version -> + cj
   jpa:
-    open-in-view: false
+    open-in-view: false # OSIV
     defer-datasource-initialization: true # make test jpa data (resource in query)
     hibernate.ddl-auto: create
     show-sql: true
