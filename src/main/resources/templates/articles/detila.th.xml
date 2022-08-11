@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<thloginc>
-    <attr sel="#header" th:replace="header :: header"/>
-    <attr sel="#footer" th:replace="footer :: footer"/>
-</thloginc>
-

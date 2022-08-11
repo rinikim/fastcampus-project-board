@@ -1,41 +1,38 @@
 debug: false
-management.endpoints.web.exposure.include: "*"  # actuator all feature
+management.endpoints.web.exposure.include: "*"
 
 logging:
   level:
     com.fastcampus.projectboard: debug
     org.springframework.web.servlet: debug
-    org.hibernate.type.descriptor.sql.BasicBinder: trace # query log -> ? binding check
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
 
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/board
     username: uno
     password: thisisTESTpw!#%&
-    driver-class-name: com.mysql.cj.jdbc.Driver # mysql 8 version -> + cj
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    open-in-view: false # OSIV
-    defer-datasource-initialization: true # make test jpa data (resource in query)
+    open-in-view: false
+    defer-datasource-initialization: true
     hibernate.ddl-auto: create
     show-sql: true
     properties:
       hibernate.format_sql: true
-      hibernate.default_batch_fetch_size: 100 # bulk query (id in)
+      hibernate.default_batch_fetch_size: 100
   sql.init.mode: always
-  data:
-    rest:
-      base-path: /api
-      detection-strategy: annotated
+  data.rest:
+    base-path: /api
+    detection-strategy: annotated
+  thymeleaf3.decoupled-logic: true
 
 ---
 
 spring:
-  config.activate.on-profile: testdb
+  config.activate.on-profile: heroku
   datasource:
-    url: jdbc:h2:mem:board;mode=mysql # mysql mode? ???
-    driver-class-name: org.h2.Driver
+    url: ${JAWSDB_URL}
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa.hibernate.ddl-auto: create
   sql.init.mode: always
-  test.database.replace: none
-  thymeleaf3:
-    decoupled-logic: true
