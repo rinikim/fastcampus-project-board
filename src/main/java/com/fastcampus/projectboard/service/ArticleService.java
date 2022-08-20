@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -91,5 +92,9 @@ public class ArticleService {
 
     public long getArticleCount() {
         return articleRepository.count();
+    }
+
+    public List<String> getHashtags() {
+        return articleRepository.findAllDistinctHashtags();
     }
 }
