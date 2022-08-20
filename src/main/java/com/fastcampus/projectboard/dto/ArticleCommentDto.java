@@ -38,10 +38,10 @@ public record ArticleCommentDto(
         );
     }
 
-    public ArticleComment toEntity(Article article) {
+    public ArticleComment toEntity(Article article, UserAccount userAccount) {
         return ArticleComment.of(
                 article,
-                userAccountDto.toEntity(),
+                userAccount,
                 content
         );
     }
