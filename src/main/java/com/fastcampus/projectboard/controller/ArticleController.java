@@ -41,6 +41,7 @@ public class ArticleController {
         map.addAttribute("articles", articles);
         map.addAttribute("paginationBarNumbers", barNumbers);
         map.addAttribute("searchTypes", SearchType.values());
+
         return "articles/index";
     }
 
@@ -80,7 +81,7 @@ public class ArticleController {
         return "articles/form";
     }
 
-    @PostMapping("/form")
+    @PostMapping ("/form")
     public String postNewArticle(
             @AuthenticationPrincipal BoardPrincipal boardPrincipal,
             ArticleRequest articleRequest
